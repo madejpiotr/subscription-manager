@@ -1,0 +1,58 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #0F1115;
+  --color-surface: #171A21;
+  --color-surface-hover: #1D2129;
+  --color-border: #2A2E38;
+  --color-text: #E8E6E1;
+  --color-text-muted: #8B8F99;
+  --color-accent: #F2B84B;
+  --color-accent-dim: #B98D3B;
+  --color-danger: #E2574C;
+
+  --font-display: "Space Grotesk", sans-serif;
+  --font-body: "Inter", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+}
+
+html {
+  font-size: 115%; /* ~15% większe wszystko, oparte na rem */
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+}
+
+/* Przerywana linia "odrywania" na kartach subskrypcji */
+.ticket-divider {
+  border-left: 2px dashed var(--color-border);
+}
+
+.ticket-accent-line {
+  position: absolute;
+  left: 40px;
+  right: 190px; 
+  height: 0;
+  border-top: 8px double var(--color-border);
+  pointer-events: none;
+}
+
+/* Ząbkowana krawędź stubu - symuluje perforację biletu */
+.ticket-notch::before,
+.ticket-notch::after {
+  content: "";
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  background: var(--color-bg);
+  border-radius: 50%;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  z-index: 5;
+}
+.ticket-notch::before { left: -12px; }
+.ticket-notch::after { right: -10px; }
