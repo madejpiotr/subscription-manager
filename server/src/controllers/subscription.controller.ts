@@ -1,18 +1,35 @@
 import type { Request, Response } from "express";
 import { prisma } from "../lib/prisma.js";
 
-const advanceBillingDate = (date: Date, cycle: string): Date => {
-  const next = new Date(date);
-  if (cycle === "monthly") next.setMonth(next.getMonth() + 1);
-  else if (cycle === "yearly") next.setFullYear(next.getFullYear() + 1);
-  else if (cycle === "weekly") next.setDate(next.getDate() + 7);
-  return next;
+const advanceBillingDate = (date: Date, cycle: string, billingDay: number): Date => {
+  const current = new Date(date);
+
+  if (cycle === "weekly") {
+    current.setDate(current.getDate() + 7);
+    return current;
+  }
+
+  const monthsToAdd = cycle === "yearly" ? 12 : 1;
+
+  current.setDate(1);
+  current.setMonth(current.getMonth() + monthsToAdd);
+
+  const daysInTargetMonth = new Date(
+    current.getFullYear(),
+    current.getMonth() + 1,
+    0
+  ).getDate();
+
+  current.setDate(Math.min(billingDay, daysInTargetMonth));
+
+  return current;
 };
 
 const rollForwardIfPast = async (subscription: {
   id: string;
   nextBillingAt: Date;
   billingCycle: string;
+  billingDay: number;
 }) => {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
@@ -22,10 +39,8 @@ const rollForwardIfPast = async (subscription: {
 
   let changed = false;
 
-  // Przesuwaj datę w pętli, dopóki nie jest dzisiaj albo w przyszłości
-  // (obsługuje przypadek, gdy user nie logował się przez kilka cykli z rzędu)
   while (nextBillingAt < today) {
-    nextBillingAt = advanceBillingDate(nextBillingAt, subscription.billingCycle);
+    nextBillingAt = advanceBillingDate(nextBillingAt, subscription.billingCycle, subscription.billingDay);
     changed = true;
   }
 
@@ -62,6 +77,7 @@ export const createSubscription = async (req: Request, res: Response) => {
         currency: currency || "PLN",
         billingCycle,
         nextBillingAt: new Date(nextBillingAt),
+        billingDay: new Date(nextBillingAt).getDate(),
         category,
         userId: req.userId!,
       },
@@ -81,7 +97,6 @@ export const getSubscriptions = async (req: Request, res: Response) => {
       orderBy: { nextBillingAt: "asc" },
     });
 
-    // Sprawdź każdą subskrypcję i przesuń datę, jeśli minęła
     const updated = await Promise.all(
       subscriptions.map(async (sub) => {
         const nextBillingAt = await rollForwardIfPast(sub);

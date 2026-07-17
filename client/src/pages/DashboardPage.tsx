@@ -13,7 +13,7 @@ import type { SubscriptionTemplate } from "../data/subscriptionTemplates";
 import { Pencil, Trash2, Pause, Play } from "lucide-react";
 
 type SortOption = "name" | "price" | "nextBillingAt" | "category";
-
+type PeriodOption = "weekly" | "monthly" | "yearly";
 
 
 const formatDate = (isoString: string) => {
@@ -42,6 +42,7 @@ export const DashboardPage = () => {
   const [statusFilter, setStatusFilter] = useState<Set<string>>(new Set(["active", "inactive"]));
   const [selectedCategories, setSelectedCategories] = useState<Set<string> | null>(null);
   const [showFilterPanel, setShowFilterPanel] = useState(false);
+  const [totalPeriod, setTotalPeriod] = useState<PeriodOption>("monthly");
 
   const { logout } = useAuth();
 
@@ -166,6 +167,13 @@ export const DashboardPage = () => {
   const monthlyTotal = subscriptions
     .filter((s) => s.isActive)
     .reduce((sum, s) => sum + getMonthlyPrice(s), 0);
+
+  const displayedTotal =
+    totalPeriod === "weekly"
+      ? monthlyTotal / 4.33
+      : totalPeriod === "yearly"
+        ? monthlyTotal * 12
+        : monthlyTotal;
 
   const allCategories = Array.from(
     new Set(subscriptions.map((s) => s.category || "Bez kategorii"))
@@ -463,10 +471,10 @@ export const DashboardPage = () => {
                     key={sub.id}
                     className={`relative ticket-notch bg-surface border border-border rounded-lg flex transition-opacity ${!sub.isActive ? "opacity-50" : ""}`}
                   >
-                    <div className="ticket-accent-line top-4" />
-                    <div className="ticket-accent-line bottom-4" />
+                    <div className="ticket-accent-line top-3" />
+                    <div className="ticket-accent-line bottom-3" />
 
-                    <div className="flex-1 p-8 flex flex-col items-center justify-center text-center">
+                    <div className="flex-1 p-7 flex flex-col items-center justify-center text-center">
                       <p className="font-display font-bold">{sub.name}</p>
                       <div className="flex items-center gap-2 mt-1">
                         {sub.category && (
@@ -485,7 +493,7 @@ export const DashboardPage = () => {
                       </p>
                     </div>
 
-                    <div className="ticket-divider flex flex-col items-center justify-center text-center py-6 px-4 w-[150px] shrink-0">                      <p className="font-mono text-lg text-accent font-medium">
+                    <div className="ticket-divider flex flex-col items-center justify-center text-center py-6 px-4 w-[170px] shrink-0">                      <p className="font-mono text-lg text-accent font-medium">
                       {parseFloat(sub.price).toFixed(2)} <span className="text-xs text-text-muted">{sub.currency}</span>
                     </p>
                       <p className="font-mono text-s text-accent font-medium">
@@ -530,9 +538,34 @@ export const DashboardPage = () => {
           <div className="flex flex-col gap-4 lg:sticky lg:top-10 lg:self-start">
 
             <div className="bg-surface border border-border rounded-lg p-5">
-              <p className="font-mono text-xs text-text-muted uppercase tracking-wider mb-2">Miesięczny rachunek</p>
+              <div className="flex justify-between items-center mb-2">
+                <p className="font-mono text-xs text-text-muted uppercase tracking-wider">Rachunek</p>
+                <div className="flex gap-1">
+                  <button
+                    onClick={() => setTotalPeriod("weekly")}
+                    className={`font-mono text-[10px] px-2 py-1 rounded transition ${totalPeriod === "weekly" ? "bg-accent text-bg" : "text-text-muted hover:text-text"
+                      }`}
+                  >
+                    TYDZ
+                  </button>
+                  <button
+                    onClick={() => setTotalPeriod("monthly")}
+                    className={`font-mono text-[10px] px-2 py-1 rounded transition ${totalPeriod === "monthly" ? "bg-accent text-bg" : "text-text-muted hover:text-text"
+                      }`}
+                  >
+                    MIES
+                  </button>
+                  <button
+                    onClick={() => setTotalPeriod("yearly")}
+                    className={`font-mono text-[10px] px-2 py-1 rounded transition ${totalPeriod === "yearly" ? "bg-accent text-bg" : "text-text-muted hover:text-text"
+                      }`}
+                  >
+                    ROK
+                  </button>
+                </div>
+              </div>
               <p className="font-mono text-3xl font-medium text-accent">
-                {monthlyTotal.toFixed(2)} <span className="text-sm text-text-muted">PLN</span>
+                {displayedTotal.toFixed(2)} <span className="text-sm text-text-muted">PLN</span>
               </p>
             </div>
 

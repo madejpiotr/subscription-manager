@@ -25,8 +25,9 @@ model Subscription {
   name          String
   price         Decimal
   currency      String   @default("PLN")
-  billingCycle  String   // "monthly" | "yearly" | "weekly"
+  billingCycle  String
   nextBillingAt DateTime
+  billingDay    Int     
   category      String?
   isActive      Boolean  @default(true)
   userId        String

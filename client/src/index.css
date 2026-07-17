@@ -45,8 +45,8 @@ body {
 .ticket-notch::after {
   content: "";
   position: absolute;
-  width: 24px;
-  height: 24px;
+  width: 36px;
+  height: 36px;
   background: var(--color-bg);
   border-radius: 50%;
   top: 50%;
@@ -54,5 +54,5 @@ body {
   pointer-events: none;
   z-index: 5;
 }
-.ticket-notch::before { left: -12px; }
-.ticket-notch::after { right: -10px; }
+.ticket-notch::before { left: -18px; }
+.ticket-notch::after { right: -14px; }
