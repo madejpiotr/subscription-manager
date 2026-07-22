@@ -11,6 +11,7 @@ import type { Subscription } from "../api/subscriptions";
 import { TemplatePicker } from "../components/TemplatePicker";
 import type { SubscriptionTemplate } from "../data/subscriptionTemplates";
 import { Pencil, Trash2, Pause, Play } from "lucide-react";
+import { ChevronDown, Calendar } from "lucide-react";
 
 type SortOption = "name" | "price" | "nextBillingAt" | "category";
 type PeriodOption = "weekly" | "monthly" | "yearly";
@@ -397,25 +398,36 @@ export const DashboardPage = () => {
 
                 <div className="flex gap-3">
                   <div className="flex-1">
-                    <input
-                      type="number"
-                      step="0.01"
-                      placeholder="Cena"
-                      value={price}
-                      onChange={(e) => setPrice(e.target.value)}
-                      className={`w-full bg-bg border rounded px-3 py-2 text-sm font-mono focus:outline-none focus:border-accent ${formErrors.price ? "border-danger" : "border-border"}`}
-                    />
+                    <div className="relative">
+                      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-accent font-mono text-sm pointer-events-none">
+                        PLN
+                      </span>
+                      <input
+                        type="number"
+                        step="5"
+                        placeholder="0.00"
+                        value={price}
+                        onChange={(e) => setPrice(e.target.value)}
+                        className={`w-full bg-bg border rounded pl-12 pr-3 py-2 text-sm font-mono focus:outline-none focus:border-accent ${formErrors.price ? "border-danger" : "border-border"}`}
+                      />
+                    </div>
                     {formErrors.price && <p className="text-danger text-xs mt-1">{formErrors.price}</p>}
                   </div>
-                  <select
-                    value={billingCycle}
-                    onChange={(e) => setBillingCycle(e.target.value)}
-                    className="bg-bg border border-border rounded px-3 py-2 text-sm focus:outline-none focus:border-accent"
-                  >
-                    <option value="weekly">Tygodniowo</option>
-                    <option value="monthly">Miesięcznie</option>
-                    <option value="yearly">Rocznie</option>
-                  </select>
+                  <div className="relative">
+                    <select
+                      value={billingCycle}
+                      onChange={(e) => setBillingCycle(e.target.value)}
+                      className="appearance-none bg-bg border border-border rounded px-3 py-2 pr-9 text-sm font-mono focus:outline-none focus:border-accent cursor-pointer"
+                    >
+                      <option value="weekly">Tygodniowo</option>
+                      <option value="monthly">Miesięcznie</option>
+                      <option value="yearly">Rocznie</option>
+                    </select>
+                    <ChevronDown
+                      size={16}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-accent pointer-events-none"
+                    />
+                  </div>
                 </div>
 
                 <div>
@@ -423,7 +435,7 @@ export const DashboardPage = () => {
                     type="date"
                     value={nextBillingAt}
                     onChange={(e) => setNextBillingAt(e.target.value)}
-                    className={`w-full bg-bg border rounded px-3 py-2 text-sm font-mono focus:outline-none focus:border-accent ${formErrors.nextBillingAt ? "border-danger" : "border-border"}`}
+                    className={`w-full bg-bg border rounded px-3 py-2 text-sm font-mono focus:outline-none focus:border-accent [color-scheme:dark] ${formErrors.nextBillingAt ? "border-danger" : "border-border"}`}
                   />
                   {formErrors.nextBillingAt && <p className="text-danger text-xs mt-1">{formErrors.nextBillingAt}</p>}
                 </div>
@@ -471,12 +483,13 @@ export const DashboardPage = () => {
                     key={sub.id}
                     className={`relative ticket-notch bg-surface border border-border rounded-lg flex transition-opacity ${!sub.isActive ? "opacity-50" : ""}`}
                   >
-                    <div className="ticket-accent-line top-3" />
-                    <div className="ticket-accent-line bottom-3" />
 
-                    <div className="flex-1 p-7 flex flex-col items-center justify-center text-center">
+                    <div className="flex-1 relative p-7 flex flex-col items-center justify-center text-center">
+                      <div className="ticket-accent-line top-3" />
+                      <div className="ticket-accent-line bottom-3" />
                       <p className="font-display font-bold">{sub.name}</p>
                       <div className="flex items-center gap-2 mt-1">
+
                         {sub.category && (
                           <p className="font-mono text-[10px] text-text-muted uppercase tracking-wider">
                             {sub.category}

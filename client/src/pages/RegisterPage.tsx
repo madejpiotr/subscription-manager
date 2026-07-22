@@ -20,7 +20,6 @@ export const RegisterPage = () => {
 
     try {
       await registerUser(email, password);
-      // od razu logujemy usera po udanej rejestracji, żeby nie musiał wpisywać danych drugi raz
       const data = await loginUser(email, password);
       login(data.token);
       navigate("/");
@@ -33,48 +32,64 @@ export const RegisterPage = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
-      <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-sm">
-        <h1 className="text-2xl font-bold mb-6 text-center">Zarejestruj się</h1>
+    <div className="min-h-screen bg-bg text-text flex items-center justify-center px-6">
+      <div className="w-full max-w-sm">
 
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-          <div>
-            <label className="block text-sm font-medium mb-1">Email</label>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
+        <div className="text-center mb-8">
+          <p className="font-mono text-xs text-accent tracking-widest uppercase mb-1">
+            Panel subskrypcji
+          </p>
+          <h1 className="font-display text-2xl font-bold">Załóż konto</h1>
+        </div>
 
-          <div>
-            <label className="block text-sm font-medium mb-1">Hasło</label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              minLength={8}
-              className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
+        <div className="relative ticket-notch bg-surface border border-border rounded-lg p-8">
+          <div className="ticket-accent-line top-4" />
+          <div className="ticket-accent-line bottom-4" />
 
-          {error && <p className="text-red-600 text-sm">{error}</p>}
+          <form onSubmit={handleSubmit} className="flex flex-col gap-4 py-2">
+            <div>
+              <label className="font-mono text-[10px] text-text-muted uppercase tracking-wider block mb-1">
+                Email
+              </label>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                className="w-full bg-bg border border-border rounded px-3 py-2 text-sm focus:outline-none focus:border-accent"
+              />
+            </div>
 
-          <button
-            type="submit"
-            disabled={isLoading}
-            className="bg-blue-600 text-white rounded px-4 py-2 font-medium hover:bg-blue-700 disabled:opacity-50"
-          >
-            {isLoading ? "Rejestracja..." : "Zarejestruj się"}
-          </button>
-        </form>
+            <div>
+              <label className="font-mono text-[10px] text-text-muted uppercase tracking-wider block mb-1">
+                Hasło
+              </label>
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                minLength={8}
+                className="w-full bg-bg border border-border rounded px-3 py-2 text-sm focus:outline-none focus:border-accent"
+              />
+              <p className="font-mono text-[10px] text-text-muted mt-1">min. 8 znaków</p>
+            </div>
 
-        <p className="text-sm text-center mt-4 text-gray-600">
+            {error && <p className="text-danger text-xs font-mono">{error}</p>}
+
+            <button
+              type="submit"
+              disabled={isLoading}
+              className="bg-accent text-bg font-mono text-sm font-medium rounded px-4 py-2 hover:bg-accent-dim transition disabled:opacity-50 mt-2"
+            >
+              {isLoading ? "Rejestracja..." : "Zarejestruj się"}
+            </button>
+          </form>
+        </div>
+
+        <p className="text-sm text-center mt-6 text-text-muted font-mono">
           Masz już konto?{" "}
-          <Link to="/login" className="text-blue-600 hover:underline">
+          <Link to="/login" className="text-accent hover:underline">
             Zaloguj się
           </Link>
         </p>

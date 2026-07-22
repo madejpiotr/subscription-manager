@@ -18,9 +18,14 @@ export const TemplatePicker = ({ onSelect }: Props) => {
             key={template.id}
             type="button"
             onClick={() => onSelect(template)}
-            className="flex items-center gap-2 border rounded-lg px-3 py-2 text-left hover:bg-gray-50 transition"
+            className="flex items-center gap-2 border rounded-lg px-3 py-2 text-left hover:bg-zinc-700 transition"
           >
-            <BrandIcon slug={template.iconSlug} size={20} fallbackLabel={template.name} />
+            <BrandIcon
+              slug={template.iconSlug}
+              size={30}
+              localIcon={template.localIcon}
+              fallbackLabel={template.name}
+            />
             <div className="min-w-0">
               <p className="text-sm font-medium truncate">{template.name}</p>
               <p className="text-xs text-gray-500">

@@ -33,8 +33,8 @@ body {
 
 .ticket-accent-line {
   position: absolute;
-  left: 40px;
-  right: 190px; 
+  left: 5%;
+  right: 5%; 
   height: 0;
   border-top: 8px double var(--color-border);
   pointer-events: none;
@@ -55,4 +55,13 @@ body {
   z-index: 5;
 }
 .ticket-notch::before { left: -18px; }
-.ticket-notch::after { right: -14px; }
+.ticket-notch::after { right: -16px; }
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+}
