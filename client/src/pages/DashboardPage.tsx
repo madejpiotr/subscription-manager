@@ -12,6 +12,7 @@ import { TemplatePicker } from "../components/TemplatePicker";
 import type { SubscriptionTemplate } from "../data/subscriptionTemplates";
 import { Pencil, Trash2, Pause, Play } from "lucide-react";
 import { ChevronDown, Calendar } from "lucide-react";
+import { Link } from "react-router-dom";
 
 type SortOption = "name" | "price" | "nextBillingAt" | "category";
 type PeriodOption = "weekly" | "monthly" | "yearly";
@@ -251,12 +252,20 @@ export const DashboardPage = () => {
             <p className="font-mono text-xs text-accent tracking-widest uppercase mb-1">Panel subskrypcji</p>
             <h1 className="font-display text-3xl font-bold">Twoje subskrypcje</h1>
           </div>
-          <button
-            onClick={logout}
-            className="font-mono text-xs text-text-muted hover:text-danger transition"
-          >
-            Wyloguj →
-          </button>
+          <div className="flex items-center gap-4">
+            <Link
+              to="/settings"
+              className="font-mono text-xs text-text-muted hover:text-accent transition"
+            >
+              Ustawienia
+            </Link>
+            <button
+              onClick={logout}
+              className="font-mono text-xs text-text-muted hover:text-danger transition"
+            >
+              Wyloguj →
+            </button>
+          </div>
         </div>
 
         {/* Dwie kolumny */}
@@ -388,7 +397,7 @@ export const DashboardPage = () => {
 
                 <div>
                   <input
-                    placeholder="Nazwa (np. Netflix)"
+                    placeholder="Nazwa"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     className={`w-full bg-bg border rounded px-3 py-2 text-sm focus:outline-none focus:border-accent ${formErrors.name ? "border-danger" : "border-border"}`}

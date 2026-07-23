@@ -20,8 +20,18 @@ export type UserModel = runtime.Types.Result.DefaultSelection<Prisma.$UserPayloa
 
 export type AggregateUser = {
   _count: UserCountAggregateOutputType | null
+  _avg: UserAvgAggregateOutputType | null
+  _sum: UserSumAggregateOutputType | null
   _min: UserMinAggregateOutputType | null
   _max: UserMaxAggregateOutputType | null
+}
+
+export type UserAvgAggregateOutputType = {
+  reminderDaysBefore: number | null
+}
+
+export type UserSumAggregateOutputType = {
+  reminderDaysBefore: number | null
 }
 
 export type UserMinAggregateOutputType = {
@@ -29,6 +39,10 @@ export type UserMinAggregateOutputType = {
   email: string | null
   passwordHash: string | null
   createdAt: Date | null
+  emailRemindersEnabled: boolean | null
+  reminderDaysBefore: number | null
+  remindOnlyActive: boolean | null
+  weeklyDigestEnabled: boolean | null
 }
 
 export type UserMaxAggregateOutputType = {
@@ -36,6 +50,10 @@ export type UserMaxAggregateOutputType = {
   email: string | null
   passwordHash: string | null
   createdAt: Date | null
+  emailRemindersEnabled: boolean | null
+  reminderDaysBefore: number | null
+  remindOnlyActive: boolean | null
+  weeklyDigestEnabled: boolean | null
 }
 
 export type UserCountAggregateOutputType = {
@@ -43,15 +61,31 @@ export type UserCountAggregateOutputType = {
   email: number
   passwordHash: number
   createdAt: number
+  emailRemindersEnabled: number
+  reminderDaysBefore: number
+  remindOnlyActive: number
+  weeklyDigestEnabled: number
   _all: number
 }
 
+
+export type UserAvgAggregateInputType = {
+  reminderDaysBefore?: true
+}
+
+export type UserSumAggregateInputType = {
+  reminderDaysBefore?: true
+}
 
 export type UserMinAggregateInputType = {
   id?: true
   email?: true
   passwordHash?: true
   createdAt?: true
+  emailRemindersEnabled?: true
+  reminderDaysBefore?: true
+  remindOnlyActive?: true
+  weeklyDigestEnabled?: true
 }
 
 export type UserMaxAggregateInputType = {
@@ -59,6 +93,10 @@ export type UserMaxAggregateInputType = {
   email?: true
   passwordHash?: true
   createdAt?: true
+  emailRemindersEnabled?: true
+  reminderDaysBefore?: true
+  remindOnlyActive?: true
+  weeklyDigestEnabled?: true
 }
 
 export type UserCountAggregateInputType = {
@@ -66,6 +104,10 @@ export type UserCountAggregateInputType = {
   email?: true
   passwordHash?: true
   createdAt?: true
+  emailRemindersEnabled?: true
+  reminderDaysBefore?: true
+  remindOnlyActive?: true
+  weeklyDigestEnabled?: true
   _all?: true
 }
 
@@ -107,6 +149,18 @@ export type UserAggregateArgs<ExtArgs extends runtime.Types.Extensions.InternalA
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
+   * Select which fields to average
+  **/
+  _avg?: UserAvgAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
+   * Select which fields to sum
+  **/
+  _sum?: UserSumAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
    * Select which fields to find the minimum value
   **/
   _min?: UserMinAggregateInputType
@@ -137,6 +191,8 @@ export type UserGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
   take?: number
   skip?: number
   _count?: UserCountAggregateInputType | true
+  _avg?: UserAvgAggregateInputType
+  _sum?: UserSumAggregateInputType
   _min?: UserMinAggregateInputType
   _max?: UserMaxAggregateInputType
 }
@@ -146,7 +202,13 @@ export type UserGroupByOutputType = {
   email: string
   passwordHash: string
   createdAt: Date
+  emailRemindersEnabled: boolean
+  reminderDaysBefore: number
+  remindOnlyActive: boolean
+  weeklyDigestEnabled: boolean
   _count: UserCountAggregateOutputType | null
+  _avg: UserAvgAggregateOutputType | null
+  _sum: UserSumAggregateOutputType | null
   _min: UserMinAggregateOutputType | null
   _max: UserMaxAggregateOutputType | null
 }
@@ -174,6 +236,10 @@ export type UserWhereInput = {
   email?: Prisma.StringFilter<"User"> | string
   passwordHash?: Prisma.StringFilter<"User"> | string
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  emailRemindersEnabled?: Prisma.BoolFilter<"User"> | boolean
+  reminderDaysBefore?: Prisma.IntFilter<"User"> | number
+  remindOnlyActive?: Prisma.BoolFilter<"User"> | boolean
+  weeklyDigestEnabled?: Prisma.BoolFilter<"User"> | boolean
   subscriptions?: Prisma.SubscriptionListRelationFilter
 }
 
@@ -182,6 +248,10 @@ export type UserOrderByWithRelationInput = {
   email?: Prisma.SortOrder
   passwordHash?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  emailRemindersEnabled?: Prisma.SortOrder
+  reminderDaysBefore?: Prisma.SortOrder
+  remindOnlyActive?: Prisma.SortOrder
+  weeklyDigestEnabled?: Prisma.SortOrder
   subscriptions?: Prisma.SubscriptionOrderByRelationAggregateInput
 }
 
@@ -193,6 +263,10 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   passwordHash?: Prisma.StringFilter<"User"> | string
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  emailRemindersEnabled?: Prisma.BoolFilter<"User"> | boolean
+  reminderDaysBefore?: Prisma.IntFilter<"User"> | number
+  remindOnlyActive?: Prisma.BoolFilter<"User"> | boolean
+  weeklyDigestEnabled?: Prisma.BoolFilter<"User"> | boolean
   subscriptions?: Prisma.SubscriptionListRelationFilter
 }, "id" | "email">
 
@@ -201,9 +275,15 @@ export type UserOrderByWithAggregationInput = {
   email?: Prisma.SortOrder
   passwordHash?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  emailRemindersEnabled?: Prisma.SortOrder
+  reminderDaysBefore?: Prisma.SortOrder
+  remindOnlyActive?: Prisma.SortOrder
+  weeklyDigestEnabled?: Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
+  _avg?: Prisma.UserAvgOrderByAggregateInput
   _max?: Prisma.UserMaxOrderByAggregateInput
   _min?: Prisma.UserMinOrderByAggregateInput
+  _sum?: Prisma.UserSumOrderByAggregateInput
 }
 
 export type UserScalarWhereWithAggregatesInput = {
@@ -214,6 +294,10 @@ export type UserScalarWhereWithAggregatesInput = {
   email?: Prisma.StringWithAggregatesFilter<"User"> | string
   passwordHash?: Prisma.StringWithAggregatesFilter<"User"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
+  emailRemindersEnabled?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
+  reminderDaysBefore?: Prisma.IntWithAggregatesFilter<"User"> | number
+  remindOnlyActive?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
+  weeklyDigestEnabled?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
 }
 
 export type UserCreateInput = {
@@ -221,6 +305,10 @@ export type UserCreateInput = {
   email: string
   passwordHash: string
   createdAt?: Date | string
+  emailRemindersEnabled?: boolean
+  reminderDaysBefore?: number
+  remindOnlyActive?: boolean
+  weeklyDigestEnabled?: boolean
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
 }
 
@@ -229,6 +317,10 @@ export type UserUncheckedCreateInput = {
   email: string
   passwordHash: string
   createdAt?: Date | string
+  emailRemindersEnabled?: boolean
+  reminderDaysBefore?: number
+  remindOnlyActive?: boolean
+  weeklyDigestEnabled?: boolean
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -237,6 +329,10 @@ export type UserUpdateInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  emailRemindersEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  reminderDaysBefore?: Prisma.IntFieldUpdateOperationsInput | number
+  remindOnlyActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  weeklyDigestEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
 }
 
@@ -245,6 +341,10 @@ export type UserUncheckedUpdateInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  emailRemindersEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  reminderDaysBefore?: Prisma.IntFieldUpdateOperationsInput | number
+  remindOnlyActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  weeklyDigestEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -253,6 +353,10 @@ export type UserCreateManyInput = {
   email: string
   passwordHash: string
   createdAt?: Date | string
+  emailRemindersEnabled?: boolean
+  reminderDaysBefore?: number
+  remindOnlyActive?: boolean
+  weeklyDigestEnabled?: boolean
 }
 
 export type UserUpdateManyMutationInput = {
@@ -260,6 +364,10 @@ export type UserUpdateManyMutationInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  emailRemindersEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  reminderDaysBefore?: Prisma.IntFieldUpdateOperationsInput | number
+  remindOnlyActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  weeklyDigestEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type UserUncheckedUpdateManyInput = {
@@ -267,6 +375,10 @@ export type UserUncheckedUpdateManyInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  emailRemindersEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  reminderDaysBefore?: Prisma.IntFieldUpdateOperationsInput | number
+  remindOnlyActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  weeklyDigestEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type UserCountOrderByAggregateInput = {
@@ -274,6 +386,14 @@ export type UserCountOrderByAggregateInput = {
   email?: Prisma.SortOrder
   passwordHash?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  emailRemindersEnabled?: Prisma.SortOrder
+  reminderDaysBefore?: Prisma.SortOrder
+  remindOnlyActive?: Prisma.SortOrder
+  weeklyDigestEnabled?: Prisma.SortOrder
+}
+
+export type UserAvgOrderByAggregateInput = {
+  reminderDaysBefore?: Prisma.SortOrder
 }
 
 export type UserMaxOrderByAggregateInput = {
@@ -281,6 +401,10 @@ export type UserMaxOrderByAggregateInput = {
   email?: Prisma.SortOrder
   passwordHash?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  emailRemindersEnabled?: Prisma.SortOrder
+  reminderDaysBefore?: Prisma.SortOrder
+  remindOnlyActive?: Prisma.SortOrder
+  weeklyDigestEnabled?: Prisma.SortOrder
 }
 
 export type UserMinOrderByAggregateInput = {
@@ -288,6 +412,14 @@ export type UserMinOrderByAggregateInput = {
   email?: Prisma.SortOrder
   passwordHash?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  emailRemindersEnabled?: Prisma.SortOrder
+  reminderDaysBefore?: Prisma.SortOrder
+  remindOnlyActive?: Prisma.SortOrder
+  weeklyDigestEnabled?: Prisma.SortOrder
+}
+
+export type UserSumOrderByAggregateInput = {
+  reminderDaysBefore?: Prisma.SortOrder
 }
 
 export type UserScalarRelationFilter = {
@@ -301,6 +433,18 @@ export type StringFieldUpdateOperationsInput = {
 
 export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
+}
+
+export type BoolFieldUpdateOperationsInput = {
+  set?: boolean
+}
+
+export type IntFieldUpdateOperationsInput = {
+  set?: number
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
 }
 
 export type UserCreateNestedOneWithoutSubscriptionsInput = {
@@ -322,6 +466,10 @@ export type UserCreateWithoutSubscriptionsInput = {
   email: string
   passwordHash: string
   createdAt?: Date | string
+  emailRemindersEnabled?: boolean
+  reminderDaysBefore?: number
+  remindOnlyActive?: boolean
+  weeklyDigestEnabled?: boolean
 }
 
 export type UserUncheckedCreateWithoutSubscriptionsInput = {
@@ -329,6 +477,10 @@ export type UserUncheckedCreateWithoutSubscriptionsInput = {
   email: string
   passwordHash: string
   createdAt?: Date | string
+  emailRemindersEnabled?: boolean
+  reminderDaysBefore?: number
+  remindOnlyActive?: boolean
+  weeklyDigestEnabled?: boolean
 }
 
 export type UserCreateOrConnectWithoutSubscriptionsInput = {
@@ -352,6 +504,10 @@ export type UserUpdateWithoutSubscriptionsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  emailRemindersEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  reminderDaysBefore?: Prisma.IntFieldUpdateOperationsInput | number
+  remindOnlyActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  weeklyDigestEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type UserUncheckedUpdateWithoutSubscriptionsInput = {
@@ -359,6 +515,10 @@ export type UserUncheckedUpdateWithoutSubscriptionsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  emailRemindersEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  reminderDaysBefore?: Prisma.IntFieldUpdateOperationsInput | number
+  remindOnlyActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  weeklyDigestEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 
@@ -397,6 +557,10 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   email?: boolean
   passwordHash?: boolean
   createdAt?: boolean
+  emailRemindersEnabled?: boolean
+  reminderDaysBefore?: boolean
+  remindOnlyActive?: boolean
+  weeklyDigestEnabled?: boolean
   subscriptions?: boolean | Prisma.User$subscriptionsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
@@ -406,6 +570,10 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   email?: boolean
   passwordHash?: boolean
   createdAt?: boolean
+  emailRemindersEnabled?: boolean
+  reminderDaysBefore?: boolean
+  remindOnlyActive?: boolean
+  weeklyDigestEnabled?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -413,6 +581,10 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   email?: boolean
   passwordHash?: boolean
   createdAt?: boolean
+  emailRemindersEnabled?: boolean
+  reminderDaysBefore?: boolean
+  remindOnlyActive?: boolean
+  weeklyDigestEnabled?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectScalar = {
@@ -420,9 +592,13 @@ export type UserSelectScalar = {
   email?: boolean
   passwordHash?: boolean
   createdAt?: boolean
+  emailRemindersEnabled?: boolean
+  reminderDaysBefore?: boolean
+  remindOnlyActive?: boolean
+  weeklyDigestEnabled?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "passwordHash" | "createdAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "passwordHash" | "createdAt" | "emailRemindersEnabled" | "reminderDaysBefore" | "remindOnlyActive" | "weeklyDigestEnabled", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   subscriptions?: boolean | Prisma.User$subscriptionsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -440,6 +616,10 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     email: string
     passwordHash: string
     createdAt: Date
+    emailRemindersEnabled: boolean
+    reminderDaysBefore: number
+    remindOnlyActive: boolean
+    weeklyDigestEnabled: boolean
   }, ExtArgs["result"]["user"]>
   composites: {}
 }
@@ -868,6 +1048,10 @@ export interface UserFieldRefs {
   readonly email: Prisma.FieldRef<"User", 'String'>
   readonly passwordHash: Prisma.FieldRef<"User", 'String'>
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
+  readonly emailRemindersEnabled: Prisma.FieldRef<"User", 'Boolean'>
+  readonly reminderDaysBefore: Prisma.FieldRef<"User", 'Int'>
+  readonly remindOnlyActive: Prisma.FieldRef<"User", 'Boolean'>
+  readonly weeklyDigestEnabled: Prisma.FieldRef<"User", 'Boolean'>
 }
     
 

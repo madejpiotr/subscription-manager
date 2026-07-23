@@ -75,7 +75,11 @@ export const UserScalarFieldEnum = {
   id: 'id',
   email: 'email',
   passwordHash: 'passwordHash',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  emailRemindersEnabled: 'emailRemindersEnabled',
+  reminderDaysBefore: 'reminderDaysBefore',
+  remindOnlyActive: 'remindOnlyActive',
+  weeklyDigestEnabled: 'weeklyDigestEnabled'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -92,7 +96,8 @@ export const SubscriptionScalarFieldEnum = {
   category: 'category',
   isActive: 'isActive',
   userId: 'userId',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  lastReminderSentAt: 'lastReminderSentAt'
 } as const
 
 export type SubscriptionScalarFieldEnum = (typeof SubscriptionScalarFieldEnum)[keyof typeof SubscriptionScalarFieldEnum]

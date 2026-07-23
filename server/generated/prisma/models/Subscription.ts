@@ -48,6 +48,7 @@ export type SubscriptionMinAggregateOutputType = {
   isActive: boolean | null
   userId: string | null
   createdAt: Date | null
+  lastReminderSentAt: Date | null
 }
 
 export type SubscriptionMaxAggregateOutputType = {
@@ -62,6 +63,7 @@ export type SubscriptionMaxAggregateOutputType = {
   isActive: boolean | null
   userId: string | null
   createdAt: Date | null
+  lastReminderSentAt: Date | null
 }
 
 export type SubscriptionCountAggregateOutputType = {
@@ -76,6 +78,7 @@ export type SubscriptionCountAggregateOutputType = {
   isActive: number
   userId: number
   createdAt: number
+  lastReminderSentAt: number
   _all: number
 }
 
@@ -102,6 +105,7 @@ export type SubscriptionMinAggregateInputType = {
   isActive?: true
   userId?: true
   createdAt?: true
+  lastReminderSentAt?: true
 }
 
 export type SubscriptionMaxAggregateInputType = {
@@ -116,6 +120,7 @@ export type SubscriptionMaxAggregateInputType = {
   isActive?: true
   userId?: true
   createdAt?: true
+  lastReminderSentAt?: true
 }
 
 export type SubscriptionCountAggregateInputType = {
@@ -130,6 +135,7 @@ export type SubscriptionCountAggregateInputType = {
   isActive?: true
   userId?: true
   createdAt?: true
+  lastReminderSentAt?: true
   _all?: true
 }
 
@@ -231,6 +237,7 @@ export type SubscriptionGroupByOutputType = {
   isActive: boolean
   userId: string
   createdAt: Date
+  lastReminderSentAt: Date | null
   _count: SubscriptionCountAggregateOutputType | null
   _avg: SubscriptionAvgAggregateOutputType | null
   _sum: SubscriptionSumAggregateOutputType | null
@@ -268,6 +275,7 @@ export type SubscriptionWhereInput = {
   isActive?: Prisma.BoolFilter<"Subscription"> | boolean
   userId?: Prisma.StringFilter<"Subscription"> | string
   createdAt?: Prisma.DateTimeFilter<"Subscription"> | Date | string
+  lastReminderSentAt?: Prisma.DateTimeNullableFilter<"Subscription"> | Date | string | null
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
 
@@ -283,6 +291,7 @@ export type SubscriptionOrderByWithRelationInput = {
   isActive?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  lastReminderSentAt?: Prisma.SortOrderInput | Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
 }
 
@@ -301,6 +310,7 @@ export type SubscriptionWhereUniqueInput = Prisma.AtLeast<{
   isActive?: Prisma.BoolFilter<"Subscription"> | boolean
   userId?: Prisma.StringFilter<"Subscription"> | string
   createdAt?: Prisma.DateTimeFilter<"Subscription"> | Date | string
+  lastReminderSentAt?: Prisma.DateTimeNullableFilter<"Subscription"> | Date | string | null
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }, "id">
 
@@ -316,6 +326,7 @@ export type SubscriptionOrderByWithAggregationInput = {
   isActive?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  lastReminderSentAt?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.SubscriptionCountOrderByAggregateInput
   _avg?: Prisma.SubscriptionAvgOrderByAggregateInput
   _max?: Prisma.SubscriptionMaxOrderByAggregateInput
@@ -338,6 +349,7 @@ export type SubscriptionScalarWhereWithAggregatesInput = {
   isActive?: Prisma.BoolWithAggregatesFilter<"Subscription"> | boolean
   userId?: Prisma.StringWithAggregatesFilter<"Subscription"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Subscription"> | Date | string
+  lastReminderSentAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Subscription"> | Date | string | null
 }
 
 export type SubscriptionCreateInput = {
@@ -351,6 +363,7 @@ export type SubscriptionCreateInput = {
   category?: string | null
   isActive?: boolean
   createdAt?: Date | string
+  lastReminderSentAt?: Date | string | null
   user: Prisma.UserCreateNestedOneWithoutSubscriptionsInput
 }
 
@@ -366,6 +379,7 @@ export type SubscriptionUncheckedCreateInput = {
   isActive?: boolean
   userId: string
   createdAt?: Date | string
+  lastReminderSentAt?: Date | string | null
 }
 
 export type SubscriptionUpdateInput = {
@@ -379,6 +393,7 @@ export type SubscriptionUpdateInput = {
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastReminderSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   user?: Prisma.UserUpdateOneRequiredWithoutSubscriptionsNestedInput
 }
 
@@ -394,6 +409,7 @@ export type SubscriptionUncheckedUpdateInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastReminderSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type SubscriptionCreateManyInput = {
@@ -408,6 +424,7 @@ export type SubscriptionCreateManyInput = {
   isActive?: boolean
   userId: string
   createdAt?: Date | string
+  lastReminderSentAt?: Date | string | null
 }
 
 export type SubscriptionUpdateManyMutationInput = {
@@ -421,6 +438,7 @@ export type SubscriptionUpdateManyMutationInput = {
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastReminderSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type SubscriptionUncheckedUpdateManyInput = {
@@ -435,6 +453,7 @@ export type SubscriptionUncheckedUpdateManyInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastReminderSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type SubscriptionListRelationFilter = {
@@ -459,6 +478,7 @@ export type SubscriptionCountOrderByAggregateInput = {
   isActive?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  lastReminderSentAt?: Prisma.SortOrder
 }
 
 export type SubscriptionAvgOrderByAggregateInput = {
@@ -478,6 +498,7 @@ export type SubscriptionMaxOrderByAggregateInput = {
   isActive?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  lastReminderSentAt?: Prisma.SortOrder
 }
 
 export type SubscriptionMinOrderByAggregateInput = {
@@ -492,6 +513,7 @@ export type SubscriptionMinOrderByAggregateInput = {
   isActive?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  lastReminderSentAt?: Prisma.SortOrder
 }
 
 export type SubscriptionSumOrderByAggregateInput = {
@@ -549,20 +571,12 @@ export type DecimalFieldUpdateOperationsInput = {
   divide?: runtime.Decimal | runtime.DecimalJsLike | number | string
 }
 
-export type IntFieldUpdateOperationsInput = {
-  set?: number
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
-}
-
 export type NullableStringFieldUpdateOperationsInput = {
   set?: string | null
 }
 
-export type BoolFieldUpdateOperationsInput = {
-  set?: boolean
+export type NullableDateTimeFieldUpdateOperationsInput = {
+  set?: Date | string | null
 }
 
 export type SubscriptionCreateWithoutUserInput = {
@@ -576,6 +590,7 @@ export type SubscriptionCreateWithoutUserInput = {
   category?: string | null
   isActive?: boolean
   createdAt?: Date | string
+  lastReminderSentAt?: Date | string | null
 }
 
 export type SubscriptionUncheckedCreateWithoutUserInput = {
@@ -589,6 +604,7 @@ export type SubscriptionUncheckedCreateWithoutUserInput = {
   category?: string | null
   isActive?: boolean
   createdAt?: Date | string
+  lastReminderSentAt?: Date | string | null
 }
 
 export type SubscriptionCreateOrConnectWithoutUserInput = {
@@ -632,6 +648,7 @@ export type SubscriptionScalarWhereInput = {
   isActive?: Prisma.BoolFilter<"Subscription"> | boolean
   userId?: Prisma.StringFilter<"Subscription"> | string
   createdAt?: Prisma.DateTimeFilter<"Subscription"> | Date | string
+  lastReminderSentAt?: Prisma.DateTimeNullableFilter<"Subscription"> | Date | string | null
 }
 
 export type SubscriptionCreateManyUserInput = {
@@ -645,6 +662,7 @@ export type SubscriptionCreateManyUserInput = {
   category?: string | null
   isActive?: boolean
   createdAt?: Date | string
+  lastReminderSentAt?: Date | string | null
 }
 
 export type SubscriptionUpdateWithoutUserInput = {
@@ -658,6 +676,7 @@ export type SubscriptionUpdateWithoutUserInput = {
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastReminderSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type SubscriptionUncheckedUpdateWithoutUserInput = {
@@ -671,6 +690,7 @@ export type SubscriptionUncheckedUpdateWithoutUserInput = {
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastReminderSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type SubscriptionUncheckedUpdateManyWithoutUserInput = {
@@ -684,6 +704,7 @@ export type SubscriptionUncheckedUpdateManyWithoutUserInput = {
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastReminderSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 
@@ -700,6 +721,7 @@ export type SubscriptionSelect<ExtArgs extends runtime.Types.Extensions.Internal
   isActive?: boolean
   userId?: boolean
   createdAt?: boolean
+  lastReminderSentAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["subscription"]>
 
@@ -715,6 +737,7 @@ export type SubscriptionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   isActive?: boolean
   userId?: boolean
   createdAt?: boolean
+  lastReminderSentAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["subscription"]>
 
@@ -730,6 +753,7 @@ export type SubscriptionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   isActive?: boolean
   userId?: boolean
   createdAt?: boolean
+  lastReminderSentAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["subscription"]>
 
@@ -745,9 +769,10 @@ export type SubscriptionSelectScalar = {
   isActive?: boolean
   userId?: boolean
   createdAt?: boolean
+  lastReminderSentAt?: boolean
 }
 
-export type SubscriptionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "price" | "currency" | "billingCycle" | "nextBillingAt" | "billingDay" | "category" | "isActive" | "userId" | "createdAt", ExtArgs["result"]["subscription"]>
+export type SubscriptionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "price" | "currency" | "billingCycle" | "nextBillingAt" | "billingDay" | "category" | "isActive" | "userId" | "createdAt" | "lastReminderSentAt", ExtArgs["result"]["subscription"]>
 export type SubscriptionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
@@ -775,6 +800,7 @@ export type $SubscriptionPayload<ExtArgs extends runtime.Types.Extensions.Intern
     isActive: boolean
     userId: string
     createdAt: Date
+    lastReminderSentAt: Date | null
   }, ExtArgs["result"]["subscription"]>
   composites: {}
 }
@@ -1210,6 +1236,7 @@ export interface SubscriptionFieldRefs {
   readonly isActive: Prisma.FieldRef<"Subscription", 'Boolean'>
   readonly userId: Prisma.FieldRef<"Subscription", 'String'>
   readonly createdAt: Prisma.FieldRef<"Subscription", 'DateTime'>
+  readonly lastReminderSentAt: Prisma.FieldRef<"Subscription", 'DateTime'>
 }
     
 
